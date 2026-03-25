@@ -10,7 +10,8 @@ This repository contains my submission project for the AI PRISM Research Intern 
 
 - Phase 1 complete: baseline deterministic mock LLM with FastAPI backend and Streamlit frontend
 - Phase 2 complete: guardrail engine with input filtering, rewrite/block decisions, output checks, fallback, and audit logs
-- Phase 3 complete: evaluation harness with 20 synthetic scenarios and metrics exports in markdown, CSV, and JSON
+- Phase 3 complete: evaluation harness with 60 synthetic scenarios and metrics exports in markdown, CSV, and JSON
+- Phase 4 complete: polished demo UI and evaluator-focused documentation updates
 
 ## Tech Stack
 
@@ -130,6 +131,24 @@ Generated artifacts:
 - `reports/metrics_summary.json`
 - `reports/evaluation_results.csv`
 - `reports/evaluation_results.json`
+
+## Phase 4 Demo Experience
+
+Streamlit UI now includes:
+
+- Prompt presets for safe, prompt injection, harmful, and PII scenarios
+- API health check action in sidebar
+- Decision badges (`allow`, `rewrite`, `block`)
+- Triggered-rule count and trace ID visibility
+- Raw JSON response panel for transparent evaluation
+
+Recommended 1-minute demo flow:
+
+1. Show health check success in UI sidebar.
+2. Run one safe prompt and show `allow` decision.
+3. Run one injection prompt and show `rewrite` decision with triggered events.
+4. Run one harmful prompt and show `block` decision and safe fallback response.
+5. Briefly show evaluation artifacts in `reports/` folder.
 
 ## Phase Plan
 
