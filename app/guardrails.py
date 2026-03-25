@@ -11,6 +11,7 @@ from uuid import uuid4
 
 
 INJECTION_PATTERNS = [
+    r"ignore .*instructions",
     r"ignore (all|any|previous) instructions",
     r"reveal (the )?(system|developer) prompt",
     r"jailbreak",
@@ -36,6 +37,7 @@ OUTPUT_BLOCKLIST_PATTERNS = [
 PII_PATTERNS = {
     "email": r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}",
     "phone": r"\b(?:\+?\d{1,3}[\s-]?)?(?:\(?\d{3}\)?[\s-]?)\d{3}[\s-]?\d{4}\b",
+    "phone_intl": r"\b\+?\d{1,3}[\s-]?\d{4,5}[\s-]?\d{4,5}\b",
     "credit_card": r"\b(?:\d[ -]*?){13,16}\b",
 }
 

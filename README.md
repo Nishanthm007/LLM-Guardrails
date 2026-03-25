@@ -10,6 +10,7 @@ This repository contains my submission project for the AI PRISM Research Intern 
 
 - Phase 1 complete: baseline deterministic mock LLM with FastAPI backend and Streamlit frontend
 - Phase 2 complete: guardrail engine with input filtering, rewrite/block decisions, output checks, fallback, and audit logs
+- Phase 3 complete: evaluation harness with 20 synthetic scenarios and metrics exports in markdown, CSV, and JSON
 
 ## Tech Stack
 
@@ -28,6 +29,14 @@ This repository contains my submission project for the AI PRISM Research Intern 
 |   |-- main.py
 |   |-- schemas.py
 |   `-- simulator.py
+|-- evaluation/
+|   |-- run_evaluation.py
+|   `-- test_cases.json
+|-- reports/
+|   |-- evaluation_results.csv
+|   |-- evaluation_results.json
+|   |-- metrics_summary.json
+|   `-- metrics_summary.md
 |-- streamlit_app.py
 |-- requirements.txt
 `-- README.md
@@ -92,6 +101,35 @@ Response now includes guardrail metadata:
 - Audit logging:
 	- JSONL logs with timestamp, trace ID, prompt hash, events, and latency
 	- Output path: `logs/audit.jsonl`
+
+## Phase 3 Evaluation
+
+Run evaluation:
+
+```bash
+python evaluation/run_evaluation.py
+```
+
+Synthetic evaluation set:
+
+- 60 total scenarios
+- 40 attack prompts
+- 20 safe prompts
+
+Metrics generated:
+
+- Attack block rate
+- False positive rate
+- Latency overhead
+- Coverage by attack category
+- Safe prompt pass-through quality
+
+Generated artifacts:
+
+- `reports/metrics_summary.md`
+- `reports/metrics_summary.json`
+- `reports/evaluation_results.csv`
+- `reports/evaluation_results.json`
 
 ## Phase Plan
 
