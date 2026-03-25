@@ -8,8 +8,8 @@ import streamlit as st
 
 st.set_page_config(page_title="LLM Guardrails Baseline", page_icon="AI", layout="wide")
 
-st.title("LLM Guardrails - Phase 1 Baseline")
-st.caption("Deterministic mock model with FastAPI backend. Guardrails come in Phase 2.")
+st.title("LLM Guardrails - Phase 2 Engine")
+st.caption("Deterministic mock model with active guardrails and audit logging.")
 
 api_url = st.text_input("API URL", value="http://127.0.0.1:8000/generate")
 prompt = st.text_area("Enter prompt", height=180, placeholder="Ask the model anything...")
@@ -32,6 +32,12 @@ if send:
                 with right:
                     st.subheader("Model Output")
                     st.write(data.get("response", ""))
+
+                st.subheader("Guardrail Decision")
+                st.write(data.get("guardrail_decision", "unknown"))
+
+                with st.expander("Guardrail Events"):
+                    st.json(data.get("guardrail_events", []))
 
                 st.subheader("Metadata")
                 st.code(json.dumps(data, indent=2), language="json")
