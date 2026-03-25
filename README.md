@@ -1,10 +1,4 @@
-# LLM Guardrails (SISA) - Hiring Challenge
-
-This repository contains my submission project for the AI PRISM Research Intern challenge.
-
-## Selected Topic
-
-- Topic 2: LLM Guardrails
+# LLM Guardrails (SISA)
 
 ## Current Status
 
@@ -151,10 +145,10 @@ Recommended 1-minute demo flow:
 4. Run one harmful prompt and show `block` decision and safe fallback response.
 5. Briefly show evaluation artifacts in `reports/` folder.
 
+
 ## Phase Plan
 
 - Phase 1: Baseline simulator + API + UI
 - Phase 2: Guardrail engine (input, output, policies, fallback, logs)
 - Phase 3: Evaluation harness and metrics
 - Phase 4: Demo polish and final documentation
-- Phase 5: Submission assets (PPT content + final summary)
