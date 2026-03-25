@@ -9,7 +9,8 @@ This repository contains my submission project for the AI PRISM Research Intern 
 ## Current Status
 
 - Phase 1 complete: baseline deterministic mock LLM with FastAPI backend and Streamlit frontend
-- Guardrails are intentionally not enforced yet (implemented in Phase 2)
+- Phase 2 complete: guardrail engine with input filtering, rewrite/block decisions, output checks, fallback, and audit logs
+- Phase 3 complete: evaluation harness with 20 synthetic scenarios and metrics exports in markdown, CSV, and JSON
 
 ## Tech Stack
 
@@ -24,9 +25,18 @@ This repository contains my submission project for the AI PRISM Research Intern 
 .
 |-- app/
 |   |-- __init__.py
+|   |-- guardrails.py
 |   |-- main.py
 |   |-- schemas.py
 |   `-- simulator.py
+|-- evaluation/
+|   |-- run_evaluation.py
+|   `-- test_cases.json
+|-- reports/
+|   |-- evaluation_results.csv
+|   |-- evaluation_results.json
+|   |-- metrics_summary.json
+|   `-- metrics_summary.md
 |-- streamlit_app.py
 |-- requirements.txt
 `-- README.md
@@ -58,7 +68,7 @@ streamlit run streamlit_app.py
 ## Baseline Endpoints
 
 - `GET /health`: service health check
-- `POST /generate`: returns deterministic mock response
+- `POST /generate`: returns guarded deterministic mock response
 
 Request body example:
 
@@ -67,6 +77,59 @@ Request body example:
 	"prompt": "Explain what model guardrails are."
 }
 ```
+
+Response now includes guardrail metadata:
+
+- `trace_id`: request trace identifier
+- `guardrail_decision`: `allow`, `rewrite`, or `block`
+- `guardrail_events`: list of triggered policy events with severity and actions
+
+## Guardrails Implemented in Phase 2
+
+- Input classifier:
+	- Prompt injection detection
+	- Harmful/toxic intent detection
+	- PII detection (email, phone, credit card) with redaction
+- Rule engine:
+	- Severity levels (`medium`, `high`, `critical`)
+	- Decision policy (`allow`, `rewrite`, `block`)
+- Prompt sanitization and policy rewrite when injection/PII is detected
+- Output validator:
+	- Blocklist checks for unsafe output
+	- PII redaction in output
+- Fallback safe response for blocked requests
+- Audit logging:
+	- JSONL logs with timestamp, trace ID, prompt hash, events, and latency
+	- Output path: `logs/audit.jsonl`
+
+## Phase 3 Evaluation
+
+Run evaluation:
+
+```bash
+python evaluation/run_evaluation.py
+```
+
+Synthetic evaluation set:
+
+- 60 total scenarios
+- 40 attack prompts
+- 20 safe prompts
+
+Metrics generated:
+
+- Attack block rate
+- False positive rate
+- Latency overhead
+- Coverage by attack category
+- Safe prompt pass-through quality
+
+Generated artifacts:
+
+- `reports/metrics_summary.md`
+- `reports/metrics_summary.json`
+- `reports/evaluation_results.csv`
+- `reports/evaluation_results.json`
 
 ## Phase Plan
 
