@@ -90,6 +90,7 @@ Response now includes guardrail metadata:
 - Input classifier:
 	- Prompt injection detection
 	- Harmful/toxic intent detection
+	- Sexual/pornographic content detection
 	- PII detection (email, phone, credit card) with redaction
 - Rule engine:
 	- Severity levels (`medium`, `high`, `critical`)

@@ -28,10 +28,23 @@ TOXICITY_PATTERNS = [
     r"steal (passwords|money|identity)",
 ]
 
+SEXUAL_CONTENT_PATTERNS = [
+    r"\bporn\b",
+    r"\bpornographic\b",
+    r"\bxxx\b",
+    r"explicit sexual",
+    r"\bsex chat\b",
+    r"\bnude\b",
+    r"adult content",
+]
+
 OUTPUT_BLOCKLIST_PATTERNS = [
     r"step[- ]by[- ]step .*bomb",
     r"bypass security controls",
     r"credit card number is",
+    r"\bporn\b",
+    r"\bxxx\b",
+    r"explicit sexual",
 ]
 
 PII_PATTERNS = {
@@ -97,6 +110,18 @@ class GuardrailEngine:
                     severity="critical",
                     action="block",
                     detail=f"Detected harmful cues: {', '.join(toxicity_hits[:2])}",
+                )
+            )
+
+        sexual_hits = self._pattern_hits(safe_prompt, SEXUAL_CONTENT_PATTERNS)
+        if sexual_hits:
+            events.append(
+                GuardrailEvent(
+                    rule_id="SEX-001",
+                    category="sexual_content",
+                    severity="critical",
+                    action="block",
+                    detail=f"Detected sexual-content cues: {', '.join(sexual_hits[:2])}",
                 )
             )
 
